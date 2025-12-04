@@ -44,15 +44,28 @@ BLACK_TEXT_SOURCES = {
 FIREHOL_SOURCES = {
     "FireHOL_L1": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level1.netset",
     "FireHOL_L2": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/firehol_level2.netset",
-    "Blocklist_DE": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de.netset",
-    "Blocklist_DE_SSH": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_ssh.netset",
+
+    # blocklist.de
+    "Blocklist_DE": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de.ipset",
+    "Blocklist_DE_SSH": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/blocklist_de_ssh.ipset",
+
+    # dshield
     "DShield_1d": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/dshield_1d.netset",
-    "Dataplane_SSHClient": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/dataplane_sshclient.netset",
-    "Dataplane_SSHPwAuth": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/dataplane_sshpwauth.netset",
-    "GreenSnow": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/greensnow.netset",
+
+    # dataplane（全部 ipset）
+    "Dataplane_SSHClient": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/dataplane_sshclient.ipset",
+    "Dataplane_SSHPwAuth": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/dataplane_sshpwauth.ipset",
+
+    # greensnow
+    "GreenSnow": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/greensnow.ipset",
+
+    # spamhaus
     "Spamhaus_DROP": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/spamhaus_drop.netset",
-    "ET_Compromised": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/et_compromised.netset"
+
+    # EmergingThreats Compromised Hosts
+    "ET_Compromised": "https://raw.githubusercontent.com/firehol/blocklist-ipsets/master/et_compromised.ipset"
 }
+
 
 # ================= 功能函数 =================
 
