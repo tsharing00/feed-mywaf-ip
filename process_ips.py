@@ -30,7 +30,8 @@ WHITE_JSON_SOURCES = {
 
 # 2. 爬虫白名单 - 文本/CIDR 格式源
 WHITE_TEXT_SOURCES = {
-    "Baidu": "https://ip-22617.rivers.chaitin.cn/api/share/ip_group/74a45de2d0f04f739ca73b2ecc05930d?format=cidr"
+    "Baidu": "https://ip-22617.rivers.chaitin.cn/api/share/ip_group/74a45de2d0f04f739ca73b2ecc05930d?format=cidr",
+    "MyCollect": "https://www.52txr.cn/tools/spider_collect.spider"
 }
 
 # 3. 恶意黑名单 - 文本/CIDR 格式源 (长亭)
