@@ -32,8 +32,6 @@ WHITE_JSON_SOURCES = {
     "Google_user_triggered_fetchers": "https://developers.google.com/search/apis/ipranges/user-triggered-fetchers.json",
     "Google_user_triggered_fetchers_google": "https://developers.google.com/search/apis/ipranges/user-triggered-fetchers-google.json",
     "Google_gstatic": "https://www.gstatic.com/ipranges/goog.json"
-
-
 }
 
 # 2. 爬虫白名单 - 文本/CIDR 格式源
@@ -240,6 +238,31 @@ def fetch_badip_recent_days(days=7):
     print(f"    √ BadIP 总计去重后获取 {len(cidrs)} 个 IP 段")
     return cidrs
 
+def fetch_bt_waf_ips():
+    """抓取堡塔免费恶意IP共享库 (强制转/24段)"""
+    url = "https://api.ovooa.cc/api/ip_group/bt_waf/get_malicious_ip"
+    cidrs = set()
+    print(f"[-] 正在抓取 [BT_WAF]: {url} ...")
+    try:
+        resp = requests.get(url, headers=HEADERS, timeout=60)
+        resp.raise_for_status()
+        data = resp.json()
+        
+        # 接口返回结构: {"status": ..., "data": {"1.1.1.1": timestamp, ...}}
+        if "data" in data and isinstance(data["data"], dict):
+            for ip_str in data["data"].keys():
+                try:
+                    # 强制转换为 /24 网段
+                    # ip_network 会自动将主机位清零 (1.1.1.1/24 -> 1.1.1.0/24)
+                    network = ipaddress.ip_network(f"{ip_str}/24", strict=False)
+                    cidrs.add(str(network))
+                except ValueError:
+                    continue
+        print(f"    √ BT_WAF 获取到 {len(cidrs)} 个 /24 网段")
+    except Exception as e:
+        print(f"    × BT_WAF 失败: {e}")
+    return cidrs
+
 def clean_blacklist_against_whitelist(black_set, white_set):
     """
     清洗黑名单：如果黑名单中的 IP 段属于白名单（是子网或相等），则从黑名单中移除。
@@ -341,6 +364,9 @@ def main():
     
     # 2.3 BadIP 源
     black_ips_all.update(fetch_badip_recent_days(days=7))
+
+    # 2.4 堡塔免费恶意IP共享库 (新增)
+    black_ips_all.update(fetch_bt_waf_ips())
     
     print(f"\n[-] 黑名单收集完成: 原始 {len(black_ips_all)} 个IP段")
     print(f"[-] 开始合并黑名单CIDR段...")
